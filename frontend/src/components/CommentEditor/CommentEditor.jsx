@@ -29,6 +29,7 @@ function CommentEditor({ updateComments }) {
     <form className="card comment-form" onSubmit={handleSubmit}>
       <div className="card-block">
         <textarea
+          data-test = "textComment"
           className="form-control"
           onChange={handleChange}
           placeholder="Write a comment..."
@@ -39,13 +40,15 @@ function CommentEditor({ updateComments }) {
 
       <div className="card-footer">
         <Avatar alt={username} className="comment-author-img" src={image} />
-        <button className="btn btn-sm btn-primary">Post Comment</button>
+        <button data-test = "btnPostComment" className="btn btn-sm btn-primary">Post Comment</button>
       </div>
     </form>
   ) : (
     <span>
-      <Link to="/login">Sign in</Link> or <Link to="/register">Sign up</Link> to
-      add comments on this article.
+      <Link data-test = "linkLogin" to="/login">Sign in</Link> 
+      or 
+      <Link data-test = "linkRegister" to="/register">Sign up</Link>
+      to add comments on this article.
     </span>
   );
 }

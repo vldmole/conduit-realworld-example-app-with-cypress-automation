@@ -5,6 +5,7 @@ function SourceCodeLink({ left, right }) {
     <ul className={`nav navbar-nav pull-xs-${position}`}>
       <li className="nav-item">
         <a
+          data-test = "linkSourceCode"
           className="nav-link"
           href="https://github.com/TonyMckes/conduit-realworld-example-app"
         >

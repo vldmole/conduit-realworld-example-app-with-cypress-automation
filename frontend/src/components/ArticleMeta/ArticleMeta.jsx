@@ -8,6 +8,7 @@ function ArticleMeta({ author, children, createdAt }) {
   return (
     <div className="article-meta">
       <Link
+        data-test = "linkProfile"
         state={{ bio, followersCount, following, image }}
         to={`/profile/${username}`}
       >
@@ -15,13 +16,14 @@ function ArticleMeta({ author, children, createdAt }) {
       </Link>
       <div className="info">
         <Link
+          data-test = "linkAuthor"
           className="author"
           state={{ bio, followersCount, following, image }}
           to={`/profile/${username}`}
         >
           {username}
         </Link>
-        <span className="date">{dateFormatter(createdAt)}</span>
+        <span data-test = "linkCreationDate" className="date">{dateFormatter(createdAt)}</span>
       </div>
       {children}
     </div>

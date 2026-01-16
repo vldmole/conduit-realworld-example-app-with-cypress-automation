@@ -3,7 +3,7 @@ function ArticleTags({ tagList }) {
     tagList?.length > 0 && (
       <ul className="tag-list">
         {tagList.map((tag) => (
-          <li key={tag} className="tag-default tag-pill tag-outline">
+          <li key={tag} data-test = "liTag" className="tag-default tag-pill tag-outline">
             {tag}
           </li>
         ))}
