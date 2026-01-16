@@ -13,7 +13,7 @@ function FormFieldset({
   return (
     <fieldset className="form-group">
       <input
-        data-test = {`input${name}`}
+        data-test = {`input-${name}`}
         autoFocus={autoFocus}
         className={`form-control ${normal ? "" : "form-control-lg"}`}
         minLength={minLength}

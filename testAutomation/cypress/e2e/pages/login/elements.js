@@ -1,6 +1,6 @@
 export const ELEMENTS = {
-    emailInput: 'input[name="email"]',
-    passwordInput: 'input[name="password"]',
+    emailInput: 'data-test="input-email',
+    passwordInput: 'data-test="input-password"]',
     loginButton: 'button.btn' ,
     registerLinkText: 'Need an account?',
     loginAccessLinkText: 'Login',
