@@ -10,14 +10,14 @@ function Navbar() {
   return (
     <nav className="navbar navbar-light">
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" data-test="linkConduitHome">
           conduit
         </Link>
 
-        <SourceCodeLink left />
+        <SourceCodeLink left data-test="linkSourceCode"/>
 
         <ul className="nav navbar-nav pull-xs-right">
-          <NavItem text="Home" icon="ion-compose" url="/" />
+          <NavItem text="Home" icon="ion-compose" url="/" data-test="linkHome"/>
 
           {isAuth && (
             <>

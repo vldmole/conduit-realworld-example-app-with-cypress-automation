@@ -1,4 +1,4 @@
-function SourceCodeLink({ left, right }) {
+function SourceCodeLink({ left, right }, ...props) {
   const position = left ? "left" : right ? "right" : "";
 
   return (
@@ -8,6 +8,7 @@ function SourceCodeLink({ left, right }) {
           data-test = "linkSourceCode"
           className="nav-link"
           href="https://github.com/TonyMckes/conduit-realworld-example-app"
+          {...props}
         >
           <i className="ion-social-github"></i> Source code
         </a>
