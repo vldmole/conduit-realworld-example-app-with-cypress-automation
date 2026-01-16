@@ -1,7 +1,7 @@
-const headerElements = require('../e2e/pages/superiorMenu/elements').ELEMENTS;
+import headerElements from '../e2e/pages/headerMenu/headerMenu.elements';
 import { faker } from '@faker-js/faker';
-const loginElement = require('../e2e/pages/login/elements').ELEMENTS;
-const articleElement = require('../e2e/pages/editor/elements').ELEMENTS;
+import loginElement from '../e2e/pages/login/elements';
+import articleElement from '../e2e/pages/editor/elements';
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite

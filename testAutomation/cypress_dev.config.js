@@ -16,7 +16,7 @@ module.exports = defineConfig({
     saveAllAttempts: false,
   },
   e2e: {
-    baseUrl: 'https://conduit-realworld-example-app.fly.dev/',
+    baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
       // implement node event listeners here
       require('cypress-mochawesome-reporter/plugin')(on);

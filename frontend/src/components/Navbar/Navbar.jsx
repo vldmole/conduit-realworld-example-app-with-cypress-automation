@@ -21,15 +21,15 @@ function Navbar() {
 
           {isAuth && (
             <>
-              <NavItem text="New Article" icon="ion-compose" url="/editor" />
+              <NavItem data-test="linkNewArticle" text="New Article" icon="ion-compose" url="/editor" />
               <DropdownMenu />
             </>
           )}
 
           {!isAuth && (
             <>
-              <NavItem text="Login" icon="ion-log-in" url="/login" />
-              <NavItem text="Sign up" url="/register" />
+              <NavItem data-test="linkLogin" text="Login" icon="ion-log-in" url="/login" />
+              <NavItem data-test="linkSignup" text="Sign up" url="/register" />
             </>
           )}
         </ul>
