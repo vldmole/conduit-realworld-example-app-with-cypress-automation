@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "api:dev": "npx cypress open --config-file cypress/e2e/api/api_dev.config.js",
     "open:e2e:prod": "npx cypress open --config-file cypress_prod.config.js",
     "run:e2e:local": "npx cypress open --config-file cypress_dev.config.js",
     "run:e2e:prod": "npx cypress run --config-file cypress_prod.config.js"
