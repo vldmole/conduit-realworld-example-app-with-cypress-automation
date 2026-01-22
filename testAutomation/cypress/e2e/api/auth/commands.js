@@ -8,9 +8,18 @@ Cypress.Commands.add("registerUser", (userData)=>{
         body: { user : userData },
         failOnStatusCode: false
     })
+})
+
+Cypress.Commands.add("deleteUser", (userData)=>{
+    cy.request({
+        method: 'DELETE',
+        url: endpoints.user, 
+        body: { user : userData },
+        failOnStatusCode: false
+    })
 }) 
 
-Cypress.Commands.add("login", (userData)=>{
+Cypress.Commands.add("login", (userData) => {
     
     cy.request({
         method: 'POST',

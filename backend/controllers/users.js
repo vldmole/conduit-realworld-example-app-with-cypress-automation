@@ -56,4 +56,24 @@ const signIn = async (req, res, next) => {
   }
 };
 
-module.exports = { signUp, signIn };
+
+//Unregister
+const signDown = async (req, res, next) => {
+
+  try {
+
+    const user = req.loggedUser;
+    const rowCount = await User.destroy({
+      where: { email: user.email },
+    });
+    if (rowCount == 0) 
+      throw new NotFoundError("Email", "Not Found");
+    
+    res.status(201);
+  } 
+  catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { signUp, signDown, signIn };

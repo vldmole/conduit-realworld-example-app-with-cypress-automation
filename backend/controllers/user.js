@@ -1,5 +1,6 @@
 const { UnauthorizedError } = require("../helper/customErrors");
 const { bcryptHash } = require("../helper/bcrypt");
+const { User } = require("../models");
 
 //* Current User
 const currentUser = async (req, res, next) => {
@@ -45,4 +46,23 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-module.exports = { currentUser, updateUser };
+//unregister
+const deleteUser = async (req, res, next) => {
+
+  try {
+    const user = req.body.user;
+    const rowCount = await User.destroy({
+      where: { email: user.email },
+    });
+    if (rowCount == 0) 
+      throw new NotFoundError("Email", "Not Found");
+    
+    res.status(204).json(user);
+  } 
+  catch (error) {
+    next(error);
+  }
+};
+
+
+module.exports = { currentUser, updateUser, deleteUser };

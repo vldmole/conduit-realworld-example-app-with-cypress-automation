@@ -13,7 +13,7 @@ describe("Signup Test Suit using FIXTURES", ()=>{
         });
     })
     
-    it.only('Should fail to signup with invalid user data', function (){
+    it('Should fail to signup with invalid user data', function (){
 
         this.users.invalidUsers
         .forEach( user =>{
@@ -30,12 +30,12 @@ describe("Signup Test Suit using FIXTURES", ()=>{
         
     })
 
-    it.skip('Should signup successfully', function (){
+    it.only('Should signup successfully', function (){
 
         this.users.validUsers
         .forEach( user =>{
 
-            registerUser(endpoints.users.base, user)
+            cy.registerUser(user)
             .then(response => {
             
                 const body = response.body;
@@ -46,6 +46,11 @@ describe("Signup Test Suit using FIXTURES", ()=>{
                 expect(credential).to.have.property('username', user.username);
                 expect(credential).to.have.property('email', user.email);
                 expect(credential).to.have.property('token').to.be.an('string').and.to.not.be.empty;
+
+                cy.deleteUser(user)
+                .then(response =>{
+                    expect(response.status).to.eq(204);
+                })
             })
         })
     })

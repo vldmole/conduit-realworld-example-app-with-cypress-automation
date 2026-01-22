@@ -5,13 +5,19 @@ const {
   NotFoundError,
   UnauthorizedError,
 } = require("../helper/customErrors");
+
 const {
   appendFollowers,
   appendFavorites,
   appendTagList,
   slugify,
 } = require("../helper/helpers");
-const { Article, Tag, User } = require("../models");
+
+const { 
+  Article, 
+  Tag, 
+  User
+} = require("../models");
 
 const includeOptions = [
   { model: Tag, as: "tagList", attributes: ["name"] },
