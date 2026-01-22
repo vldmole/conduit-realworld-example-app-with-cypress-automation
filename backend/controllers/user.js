@@ -5,14 +5,18 @@ const { User } = require("../models");
 //* Current User
 const currentUser = async (req, res, next) => {
   try {
-    const { loggedUser } = req;
-    if (!loggedUser) throw new UnauthorizedError();
+  
+    const loggedUser = req.loggedUser;
+    if (!loggedUser) 
+      throw new UnauthorizedError();
 
-    loggedUser.dataValues.email = req.headers.email;
-    delete req.headers.email;
+    const user = await User.findOne({
+      where: { email: loggedUser.email },
+    });
 
-    res.json({ user: loggedUser });
-  } catch (error) {
+    res.status(200).json({ user: user });
+  } 
+  catch (error) {
     next(error);
   }
 };

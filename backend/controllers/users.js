@@ -8,31 +8,37 @@ const {
   NotFoundError,
 } = require("../helper/customErrors");
 
+function validadeSigUpData(userData){
+
+    if (!userData.username) 
+      throw new FieldRequiredError(`A username`);
+    
+    if (!userData.email) 
+      throw new FieldRequiredError(`An email`);
+    
+    if (!userData.password) 
+      throw new FieldRequiredError(`A password`);
+}
+
 // Register
 const signUp = async (req, res, next) => {
   try {
-    const { username, email, bio, image, password } = req.body.user;
-    if (!username) throw new FieldRequiredError(`A username`);
-    if (!email) throw new FieldRequiredError(`An email`);
-    if (!password) throw new FieldRequiredError(`A password`);
+    
+    const { user } = req.body;
+    validadeSigUpData( user );
+    
+    const userExists = await User.findOne({ where: { email: user.email } });
+    if (userExists) 
+      throw new AlreadyTakenError("Email", "try logging in");
 
-    const userExists = await User.findOne({
-      where: { email: req.body.user.email },
+    const newUser = await User.create({...user,
+      password: await bcryptHash(user.password),
     });
-    if (userExists) throw new AlreadyTakenError("Email", "try logging in");
-
-    const newUser = await User.create({
-      email: email,
-      username: username,
-      bio: bio,
-      image: image,
-      password: await bcryptHash(password),
-    });
-
     newUser.dataValues.token = await jwtSign(newUser);
-
+    
     res.status(201).json({ user: newUser });
-  } catch (error) {
+  }
+  catch (error) {
     next(error);
   }
 };
@@ -40,18 +46,22 @@ const signUp = async (req, res, next) => {
 // Login
 const signIn = async (req, res, next) => {
   try {
-    const { user } = req.body;
-
+    
+    const user  = req.body.user;
+    
     const existentUser = await User.findOne({ where: { email: user.email } });
-    if (!existentUser) throw new NotFoundError("Email", "sign in first");
+    if (!existentUser) 
+      throw new NotFoundError("Email", "sign in first");
 
     const pwd = await bcryptCompare(user.password, existentUser.password);
-    if (!pwd) throw new ValidationError("Wrong email/password combination");
+    if (!pwd) 
+      throw new ValidationError("Wrong email/password combination");
 
     existentUser.dataValues.token = await jwtSign(user);
 
     res.json({ user: existentUser });
-  } catch (error) {
+  } 
+  catch (error) {
     next(error);
   }
 };

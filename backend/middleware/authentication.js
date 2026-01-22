@@ -5,26 +5,34 @@ const { User } = require("../models");
 const verifyToken = async (req, res, next) => {
   try {
     const { headers } = req;
-    if (!headers.authorization) return next();
-
+  
+    if (!headers.authorization) 
+      return next();
+  
     const token = headers.authorization.split(" ")[1];
-    if (!token) throw new SyntaxError("Token missing or malformed");
-
+    if (!token) 
+      throw new SyntaxError("Token missing or malformed");
+  
     const userVerified = await jwtVerify(token);
-    if (!userVerified) throw new Error("Invalid Token");
-
+    if (!userVerified) 
+      throw new Error("Invalid Token");
+  
+    req.loggedUser = userVerified;
+/*
     req.loggedUser = await User.findOne({
       attributes: { exclude: ["email"] },
       where: { email: userVerified.email },
     });
 
-    if (!req.loggedUser) next(new NotFoundError("User"));
+    if (!req.loggedUser) 
+      next(new NotFoundError("User"));
 
     headers.email = userVerified.email;
     req.loggedUser.dataValues.token = token;
-
+*/
     next();
-  } catch (error) {
+  }
+  catch (error) {
     next(error);
   }
 };

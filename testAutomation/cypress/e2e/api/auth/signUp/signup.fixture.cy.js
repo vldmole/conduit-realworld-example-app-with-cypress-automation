@@ -1,5 +1,6 @@
 import { API_AUTH_ENDPOINTS as endpoints} from "../endpoints";
 import '../commands';
+import '../../user/commands';
 
 describe("Signup Test Suit using FIXTURES", ()=>{
 
@@ -18,7 +19,7 @@ describe("Signup Test Suit using FIXTURES", ()=>{
         this.users.invalidUsers
         .forEach( user =>{
 
-            cy.registerUser(endpoints.users.base, user)
+            cy.registerUser(user)
             .then(response => {
                 expect(response.isOkStatusCode).to.be.false;
                 expect(response.status).to.eq(422);
@@ -30,7 +31,7 @@ describe("Signup Test Suit using FIXTURES", ()=>{
         
     })
 
-    it.only('Should signup successfully', function (){
+    it('Should signup successfully', function (){
 
         this.users.validUsers
         .forEach( user =>{

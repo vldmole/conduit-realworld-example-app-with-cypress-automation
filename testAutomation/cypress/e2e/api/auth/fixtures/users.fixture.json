@@ -20,7 +20,7 @@
     "validUsers":[
         {
             "username" : "validUsername",
-            "email"    : "validEmail@valid.com",
+            "email"    : "validEmail1@valid.com",
             "password" : "@1234Xyz"
         }
     ]

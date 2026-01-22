@@ -10,15 +10,6 @@ Cypress.Commands.add("registerUser", (userData)=>{
     })
 })
 
-Cypress.Commands.add("deleteUser", (userData)=>{
-    cy.request({
-        method: 'DELETE',
-        url: endpoints.user, 
-        body: { user : userData },
-        failOnStatusCode: false
-    })
-}) 
-
 Cypress.Commands.add("login", (userData) => {
     
     cy.request({
