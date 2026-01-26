@@ -1,7 +1,5 @@
 import {API_USER_ENDPOINTS as endpoints} from './endpoints';
 
-
-
 Cypress.Commands.add("getCurrentUser", (token)=>{
     cy.request({
         method: 'GET',

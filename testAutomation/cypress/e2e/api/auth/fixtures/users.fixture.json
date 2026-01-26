@@ -7,7 +7,7 @@
         },
         {
             "username" : "validUsername",
-            "email"    : "email#email.com",
+            "email"    : "email###email.com",
             "password" : "@1234Xyz"
         },
         {

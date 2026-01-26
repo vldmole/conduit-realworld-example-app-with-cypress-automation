@@ -2,11 +2,15 @@ const { defineConfig } = require("cypress");
 // colocar aqui todas as infos necessárias para rodar de forma local, semelhante ao arquivo de prod
 
 module.exports = defineConfig({
+  
+  projectId: "h36t43", 
+  
   env: {
     emailDefault: 'email@email.com',
     passwordDefault: '123456',
     nameDefault: 'test'
   },
+  
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
     charts: true,

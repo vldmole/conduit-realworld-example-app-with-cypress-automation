@@ -1,5 +1,4 @@
 
-import '../commands';
 
 describe("Login API Test Suit using FIXTURES", ()=>{
 
@@ -17,10 +16,9 @@ describe("Login API Test Suit using FIXTURES", ()=>{
 
         const users = this.users.invalidUsers; 
         cy.wrap(users).each((user) => {
-            debugger
+            
             cy.login(user)
             .then(response=>{
-                debugger
                 expect(response.status).to.not.be.eq(200);
                 expect(response.body.errors).to.not.be.undefined;
                 const errors = response.body.errors.body;
