@@ -68,6 +68,9 @@ jobs:
           NODE_ENV: development
           
         with:
+          # Informa o caminho exato do arquivo de configuração
+          config-file: cypress/e2e/api/api_dev.config.js
+          
           # Define onde os comandos build e start serão executados
           # Se o seu 'npm start' principal estiver na raiz, use '.' e mude o build
           working-directory: . 
