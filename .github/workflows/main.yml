@@ -74,5 +74,5 @@ jobs:
           
           # Automatically uses the Node.js version set in the previous step
           start: npm start
-          wait-on: 'http://localhost:3000' # Best practice to ensure app is ready
+          wait-on: 'http://localhost:3001' # Best practice to ensure app is ready
           browser: chrome
