@@ -25,15 +25,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      #Configuração do Banco de Dados
-      - name: Setup Database
-        env:
-          # Injetamos as variáveis aqui para a migração funcionar
-          DEV_DB_PASSWORD: 1234
-        run: |
-          npx sequelize-cli db:create --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/postgres" || true
-          npx sequelize-cli db:migrate --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/conduit" --migrations-path backend/migrations
- 
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -44,6 +35,18 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm' # Optional: automatically caches npm dependencies
 
+      - name: Install dependencies
+        run: npm ci
+
+      #Configuração do Banco de Dados
+      - name: Setup Database
+        env:
+          # Injetamos as variáveis aqui para a migração funcionar
+          DEV_DB_PASSWORD: 1234
+        run: |
+          npx sequelize-cli db:create --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/postgres" || true
+          npx sequelize-cli db:migrate --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/conduit" --migrations-path backend/migrations
+ 
       - name: Cypress run
         uses: cypress-io/github-action@v6
         
