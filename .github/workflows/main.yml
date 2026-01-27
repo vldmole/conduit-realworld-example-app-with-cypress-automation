@@ -63,7 +63,7 @@ jobs:
           DEV_DB_PASSWORD: 1234
           DEV_DB_NAME: conduit
           DEV_DB_LOGGGIN: true
-          DB_DIALECT: postgres
+          DEV_DB_DIALECT: postgres
           #
           NODE_ENV: development
           
