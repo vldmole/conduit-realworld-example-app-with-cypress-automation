@@ -62,8 +62,8 @@ jobs:
           
           # Use sh -c para que o shell interprete o comando 'cd' e o '&&'
           build: |
-            npx sequelize-cli db:create --url 'postgres://postgres:1234@localhost:5432/postgres' || true
-            npx sequelize-cli db:migrate --url 'postgres://postgres:1234@localhost:5432/conduit' --migrations-path backend/migrations
+            sh -c "npx sequelize-cli db:create --url 'postgres://postgres:1234@localhost:5432/postgres' || true"
+            sh -c "npx sequelize-cli db:migrate --url 'postgres://postgres:1234@localhost:5432/conduit' --migrations-path backend/migrations"
           
           # Automatically uses the Node.js version set in the previous step
           start: npm start
