@@ -2,6 +2,8 @@
 name: Cypress Tests
 on: 
   push:
+    branches: [ "main", "feat/*" ] # Adicione isso para rodar em branches de funcionalidade
+  pull_request:
     branches: [ "main" ]
     
 jobs:
