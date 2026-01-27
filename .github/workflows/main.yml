@@ -20,7 +20,7 @@ jobs:
           - 5432:5432
         # Aguarda o postgres estar pronto para conexões
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U postgres"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -46,8 +46,9 @@ jobs:
         env:
           # Injetamos as variáveis aqui para a migração funcionar
           DEV_DB_PASSWORD: 1234
+          
+          #npx sequelize-cli db:create --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/postgres" || true
         run: |
-          npx sequelize-cli db:create --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/postgres" || true
           npx sequelize-cli db:migrate --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/conduit" --migrations-path backend/migrations
  
       - name: Cypress run
