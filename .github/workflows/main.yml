@@ -54,13 +54,16 @@ jobs:
           NODE_ENV: development
           
         with:
-          # 1. Roda as migrações diretamente no workspace do backend
-          build: |
-            cd backend
-            npx sequelize-cli db:migrate --url 'postgres://postgres:root@localhost:5432/conduit'
+          # Define onde os comandos build e start serão executados
+          # Se o seu 'npm start' principal estiver na raiz, use '.' e mude o build
+          working-directory: . 
+          
+          # Use sh -c para que o shell interprete o comando 'cd' e o '&&'
+          build: sh -c "cd backend && npx sequelize-cli db:migrate --url 'postgres://postgres:root@localhost:5432/conduit'"
           
           # Automatically uses the Node.js version set in the previous step
           start: npm start
-          
+          wait-on: 'http://localhost:3000'
+          browser: chrome
           wait-on: 'http://localhost:3000' # Best practice to ensure app is ready
           browser: chrome
