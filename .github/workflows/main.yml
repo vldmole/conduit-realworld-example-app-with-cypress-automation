@@ -53,7 +53,11 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
+          # 1. Roda as migrações diretamente no workspace do backend
+          build: npm run db:migrate --workspace=backend
+          
           # Automatically uses the Node.js version set in the previous step
           start: npm start
+          
           wait-on: 'http://localhost:3000' # Best practice to ensure app is ready
           browser: chrome
