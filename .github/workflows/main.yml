@@ -1,3 +1,4 @@
+
 name: Cypress Tests
 on: 
   push:
@@ -23,8 +24,16 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-          
     steps:
+      #Configuração do Banco de Dados
+      - name: Setup Database
+        env:
+          # Injetamos as variáveis aqui para a migração funcionar
+          DEV_DB_PASSWORD: 1234
+        run: |
+          npx sequelize-cli db:create --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/postgres" || true
+          npx sequelize-cli db:migrate --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/conduit" --migrations-path backend/migrations
+ 
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -59,11 +68,6 @@ jobs:
           # Define onde os comandos build e start serão executados
           # Se o seu 'npm start' principal estiver na raiz, use '.' e mude o build
           working-directory: . 
-          
-          # Use sh -c para que o shell interprete o comando 'cd' e o '&&'
-          build: |
-            sh -c "npx sequelize-cli db:create --url 'postgres://postgres:1234@localhost:5432/postgres' || true"
-            sh -c "npx sequelize-cli db:migrate --url 'postgres://postgres:1234@localhost:5432/conduit' --migrations-path backend/migrations"
           
           # Automatically uses the Node.js version set in the previous step
           start: npm start
