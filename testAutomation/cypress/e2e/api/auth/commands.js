@@ -1,7 +1,7 @@
 
 import {API_AUTH_ENDPOINTS as endpoints} from './endpoints';
 
-Cypress.Commands.
+
 Cypress.Commands.add("registerUser", (userData)=>{
     cy.request({
         method: 'POST',
