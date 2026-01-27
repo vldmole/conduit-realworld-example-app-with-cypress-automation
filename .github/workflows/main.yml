@@ -13,7 +13,7 @@ jobs:
         image: postgres:16 # Versão estável em 2026
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: root
+          POSTGRES_PASSWORD: 1234
           POSTGRES_DB: conduit
         ports:
           - 5432:5432
@@ -45,13 +45,14 @@ jobs:
           # Creating a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-          # Variáveis para a sua aplicação se conectar ao banco acima
+          # Variáveis para a aplicação se conectar ao banco acima
           DEV_DB_HOSTNAME: localhost
           DEV_DB_USERNAME: postgres
-          DEV_DB_PASSWORD: root
+          DEV_DB_PASSWORD: 1234
           DEV_DB_NAME: conduit
           DEV_DB_LOGGGIN: true
           DB_DIALECT: postgres
+          #
           NODE_ENV: development
           
         with:
