@@ -12,7 +12,7 @@
         },
         {
             "username" : "validUsername",
-            "email"    : "email@valid.com",
+            "email"    : "email@@valid.com",
             "password" : ""
         }
     ],

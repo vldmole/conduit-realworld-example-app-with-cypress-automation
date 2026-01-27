@@ -10,13 +10,14 @@ const {
 
 function validadeSigUpData(userData){
 
-    if (!userData.username) 
+    if (!userData.username || userData.username.trim().length > 0) 
       throw new FieldRequiredError(`A username`);
     
-    if (!userData.email) 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!userData.email || !emailRegex.test(userData.email)) 
       throw new FieldRequiredError(`An email`);
     
-    if (!userData.password) 
+    if (!userData.password || userData.password.trim().length > 0) 
       throw new FieldRequiredError(`A password`);
 }
 
