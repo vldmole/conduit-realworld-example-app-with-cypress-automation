@@ -1,18 +1,20 @@
+
 name: Cypress Tests
 on: 
   push:
     branches: [ "main" ]
+    
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-
+    
     # Define o container do banco de dados
     services:
       postgres:
         image: postgres:16 # Versão estável em 2026
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: root
+          POSTGRES_PASSWORD: 1234
           POSTGRES_DB: conduit
         ports:
           - 5432:5432
@@ -29,31 +31,53 @@ jobs:
 
       # Reads version directly from .nvmrc in the root directory
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4 
         with:
           node-version-file: '.nvmrc'
           cache: 'npm' # Optional: automatically caches npm dependencies
+          cache-dependency-path: '**/package-lock.json'
 
+      - name: Install dependencies
+        run: npm ci
+
+      #Configuração do Banco de Dados
+      - name: Setup Database
+        env:
+          # Injetamos as variáveis aqui para a migração funcionar
+          DEV_DB_PASSWORD: 1234
+        run: |
+          npx sequelize-cli db:create --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/postgres" || true
+          npx sequelize-cli db:migrate --url "postgres://postgres:$DEV_DB_PASSWORD@localhost:5432/conduit" --migrations-path backend/migrations
+ 
       - name: Cypress run
         uses: cypress-io/github-action@v6
-        with:
-          # Automatically uses the Node.js version set in the previous step
-          start: npm start
-          wait-on: 'http://localhost:3000' # Best practice to ensure app is ready
-          browser: chrome
-          
+        
         env:
           # For recording and parallelization to work you must set your CYPRESS_RECORD_KEY
           # in GitHub repo → Settings → Secrets → Actions
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Creating a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          # Variáveis para a sua aplicação se conectar ao banco acima
+    
+          # Variáveis para a aplicação se conectar ao banco acima
           DEV_DB_HOSTNAME: localhost
           DEV_DB_USERNAME: postgres
-          DEV_DB_PASSWORD: root
+          DEV_DB_PASSWORD: 1234
           DEV_DB_NAME: conduit
           DEV_DB_LOGGGIN: true
-          DB_DIALECT: postgres
-          NODE_ENV: dev
+          DEV_DB_DIALECT: postgres
+          #
+          NODE_ENV: development
+          
+        with:
+          # Informa o caminho exato do arquivo de configuração
+          config-file: testAutomation/cypress/e2e/api/api_dev.config.js
+          
+          # Define onde os comandos build e start serão executados
+          # Se o seu 'npm start' principal estiver na raiz, use '.' e mude o build
+          working-directory: . 
+          
+          # Automatically uses the Node.js version set in the previous step
+          start: npm start
+          wait-on: 'http://localhost:3001' # Best practice to ensure app is ready
+          browser: chrome
