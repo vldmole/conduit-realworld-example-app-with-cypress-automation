@@ -5,6 +5,24 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+
+    # Define o container do banco de dados
+    services:
+      postgres:
+        image: postgres:16 # Versão estável em 2026
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: conduit
+        ports:
+          - 5432:5432
+        # Aguarda o postgres estar pronto para conexões
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+          
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,5 +48,12 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Creating a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-          NODE_ENV: test  # or 'development' depending on your config/config.json
+
+          # Variáveis para a sua aplicação se conectar ao banco acima
+          DEV_DB_HOSTNAME: localhost
+          DEV_DB_USERNAME: postgres
+          DEV_DB_PASSWORD: root
+          DEV_DB_NAME: conduit
+          DEV_DB_LOGGGIN: true
+          DB_DIALECT: postgres
+          NODE_ENV: dev
