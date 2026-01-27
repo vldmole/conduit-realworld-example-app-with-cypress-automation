@@ -1,16 +1,18 @@
 require("dotenv").config();
 const env = process.env.NODE_ENV || "development";
 const PORT = process.env.PORT || 3001;
+
 const express = require("express");
 const cors = require("cors");
-const { sequelize } = require("./models");
-const errorHandler = require("./middleware/errorHandler");
 
-const usersRoutes = require("./routes/users");
-const userRoutes = require("./routes/user");
+const { sequelize } = require("./models");
+const errorHandler  = require("./middleware/errorHandler");
+
+const usersRoutes    = require("./routes/users");
+const userRoutes     = require("./routes/user");
 const articlesRoutes = require("./routes/articles");
 const profilesRoutes = require("./routes/profiles");
-const tagsRoutes = require("./routes/tags");
+const tagsRoutes     = require("./routes/tags");
 
 const app = express();
 app.use(cors());

@@ -12,5 +12,6 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:3001',
     specPattern: 'cypress/e2e/**/*.cy.js',
     fixturesFolder: 'cypress/e2e/api', 
+    supportFile: '../support/e2e.js', 
   }
 });
