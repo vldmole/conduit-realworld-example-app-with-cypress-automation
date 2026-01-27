@@ -1,4 +1,4 @@
-
+import "../commands.js"
 
 describe("Login API Test Suit using FIXTURES", ()=>{
 
