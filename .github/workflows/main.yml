@@ -56,4 +56,4 @@ jobs:
           DEV_DB_NAME: conduit
           DEV_DB_LOGGGIN: true
           DB_DIALECT: postgres
-          NODE_ENV: dev
+          NODE_ENV: development
