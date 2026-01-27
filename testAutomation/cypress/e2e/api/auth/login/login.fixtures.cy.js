@@ -3,7 +3,7 @@
 describe("Login API Test Suit using FIXTURES", ()=>{
 
     beforeEach(()=>{
-        cy.fixture('auth/fixtures/users.fixture.json').as('users')
+        cy.fixture('users.fixtures.json').as('users')
         .then(massa=>{
             expect(massa).to.not.be.undefined;
             expect(massa.invalidUsers).to.be.a('array').and.to.not.be.empty;
