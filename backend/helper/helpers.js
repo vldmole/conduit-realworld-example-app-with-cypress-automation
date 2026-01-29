@@ -1,5 +1,8 @@
 const slugify = (string) => {
-  return string.trim().toLowerCase().replace(/\W|_/g, "-");
+  return string.trim()
+    .toLowerCase()
+    .replace(/(\W|_)+/g, "-") //substitui caractres não alfabeticos por '-' 
+    .replace(/^-+|-+$/g, "");// Remove hífens do início e do fim);
 };
 
 const appendTagList = (articleTags, article) => {
